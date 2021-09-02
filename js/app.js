@@ -10,6 +10,10 @@ const searchBook = async () => {
   if (searchText === "") {
     searchField.value = "Search field cannot be empty...";
   } else {
+    // Loading spinner
+    searchResult.innerHTML = `<div class ="spinner"></div>`;
+    resultQuantity.textContent = "";
+    // API Url
     const url = `https://openlibrary.org/search.json?q=${searchText}`;
     // Check for errors
     try {
