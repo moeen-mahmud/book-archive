@@ -29,7 +29,7 @@ const displayResult = (docs) => {
   if (Array.isArray) {
     if (docs.length !== -1) {
       docs.forEach((doc) => {
-        //Get the necessary data of the doc
+        //Get and set the necessary data of the doc
         const coverImage = doc.cover_i ? doc.cover_i : "";
         const bookName = doc.title;
         const authorsName = doc.author_name ? doc.author_name : "";
@@ -41,15 +41,16 @@ const displayResult = (docs) => {
 
         // Inner contents of the element
         div.innerHTML = `
-      <img src="https://covers.openlibrary.org/b/id/${coverImage}-M.jpg" class="block mx-auto mb-4 w-2/4 h-2/4">
-      <h1 class="mb-2 text-xl font-bold text-center">${bookName}</h1>
-      <h2 class="text-lg italic text-indigo-500">${authorsName}</h2>
-      <p class="text-gray-600 mt-8"> First published in ${firstPublish}</p>
-      <p class="text-gray-600 font-bold">Publisher: ${publisherName.slice(
-        0,
-        1
-      )}</p>
-    `;
+          <img src="https://covers.openlibrary.org/b/id/${coverImage}-M.jpg" class="block mx-auto mb-4 w-2/4 h-2/4">
+          <h1 class="mb-2 text-xl font-bold text-center">${bookName}</h1>
+          <h2 class="text-lg italic text-indigo-500">${authorsName}</h2>
+          <p class="text-gray-600 mt-8"> First published in ${firstPublish}</p>
+          <p class="text-gray-600 font-bold">Publisher: ${publisherName.slice(
+            0,
+            1
+          )}</p>
+        `;
+        // Add necessary class and append to its parent
         div.classList.add("thumbnails");
         searchResult.appendChild(div);
       });
