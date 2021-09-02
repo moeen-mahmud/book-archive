@@ -15,10 +15,9 @@ const searchBook = async () => {
       const response = await fetch(url);
       const data = await response.json();
       displayResult(data.docs.slice(0, 30));
-      console.log(data.docs);
-      totalResults(data.numFound);
+      totalResult(data.numFound, true);
     } catch (err) {
-      totalResults(data.numFound);
+      totalResult(data.numFound, false);
     }
   }
 };
@@ -30,6 +29,7 @@ const displayResult = (docs) => {
   if (Array.isArray) {
     if (docs.length !== -1) {
       docs.forEach((doc) => {
+        //Get the necessary data of the doc
         const coverImage = doc.cover_i ? doc.cover_i : "";
         const bookName = doc.title;
         const authorsName = doc.author_name ? doc.author_name : "";
@@ -38,7 +38,8 @@ const displayResult = (docs) => {
           : "";
         const publisherName = doc.publisher ? doc.publisher : "Not found";
         const div = document.createElement("div");
-        div.classList.add("p-4");
+
+        // Inner contents of the element
         div.innerHTML = `
       <img src="https://covers.openlibrary.org/b/id/${coverImage}-M.jpg" class="block mx-auto mb-4 w-2/4 h-2/4">
       <h1 class="mb-2 text-xl font-bold text-center">${bookName}</h1>
@@ -57,10 +58,10 @@ const displayResult = (docs) => {
 };
 
 //Function for displaying the total and the error message as well
-const totalResults = (numFound) => {
+const totalResult = (numFound, founded) => {
   resultQuantity.classList.add("text-center");
   // For displaying the total result
-  if (numFound > 0) {
+  if (numFound > 0 && founded === true) {
     resultQuantity.innerHTML = `
     <div class="block mx-auto mt-16">
       <h1 class="text-xl font-bold text-indigo-500">Total 
