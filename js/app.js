@@ -37,9 +37,11 @@ const displayResult = (docs) => {
       //Get and set the necessary data of the doc
       const coverImage = doc.cover_i ? doc.cover_i : "";
       const bookName = doc.title;
-      const authorsName = doc.author_name ? doc.author_name : "";
-      const firstPublish = doc.first_publish_year ? doc.first_publish_year : "";
-      const publisherName = doc.publisher ? doc.publisher : "Not found";
+      const authorsName = doc.author_name ? doc.author_name : "Unknown";
+      const firstPublish = doc.first_publish_year
+        ? doc.first_publish_year
+        : "Unknown";
+      const publisherName = doc.publisher ? doc.publisher : "";
       const div = document.createElement("div");
 
       // Inner contents of the element
