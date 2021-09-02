@@ -11,6 +11,7 @@ const searchBook = async () => {
     searchField.value = "Search field cannot be empty...";
   } else {
     const url = `https://openlibrary.org/search.json?q=${searchText}`;
+    // Check for errors
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -25,22 +26,20 @@ const searchBook = async () => {
 // Functionality for displaying the search results
 const displayResult = (docs) => {
   searchResult.textContent = "";
-  //Checking the condition
-  if (Array.isArray) {
-    if (docs.length !== -1) {
-      docs.forEach((doc) => {
-        //Get and set the necessary data of the doc
-        const coverImage = doc.cover_i ? doc.cover_i : "";
-        const bookName = doc.title;
-        const authorsName = doc.author_name ? doc.author_name : "";
-        const firstPublish = doc.first_publish_year
-          ? doc.first_publish_year
-          : "";
-        const publisherName = doc.publisher ? doc.publisher : "Not found";
-        const div = document.createElement("div");
 
-        // Inner contents of the element
-        div.innerHTML = `
+  //Checking the condition
+  if (docs.length !== -1) {
+    docs.forEach((doc) => {
+      //Get and set the necessary data of the doc
+      const coverImage = doc.cover_i ? doc.cover_i : "";
+      const bookName = doc.title;
+      const authorsName = doc.author_name ? doc.author_name : "";
+      const firstPublish = doc.first_publish_year ? doc.first_publish_year : "";
+      const publisherName = doc.publisher ? doc.publisher : "Not found";
+      const div = document.createElement("div");
+
+      // Inner contents of the element
+      div.innerHTML = `
           <img src="https://covers.openlibrary.org/b/id/${coverImage}-M.jpg" class="block mx-auto mb-4 w-2/4 h-2/4">
           <h1 class="mb-2 text-xl font-bold text-center">${bookName}</h1>
           <h2 class="text-lg italic text-indigo-500">${authorsName}</h2>
@@ -50,11 +49,10 @@ const displayResult = (docs) => {
             1
           )}</p>
         `;
-        // Add necessary class and append to its parent
-        div.classList.add("thumbnails");
-        searchResult.appendChild(div);
-      });
-    }
+      // Add necessary class and append to its parent
+      div.classList.add("thumbnails");
+      searchResult.appendChild(div);
+    });
   }
 };
 
